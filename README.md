@@ -42,15 +42,6 @@ to  further  optimize  the solution, this project has been done.
 
 EXPLANATION OF THE CODE PART
 ----------------------------
-**
-import numpy as np
-import dlib # detect and localize facial landmarks
-import cv2
-import threading
-from threading import Thread
-import imutils # image processing
-from imutils import face_utils
-from scipy.spatial import distance as dist
-import pygame
-**
+
+
 
