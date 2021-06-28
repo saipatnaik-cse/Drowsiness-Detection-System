@@ -58,3 +58,23 @@ import pygame <br />
 * we have imported Thread class so we can play our alarm in a separate thread from the main thread to ensure our script doesn't pause execution while the alarm sounds. <br />
 * Pygame to play the alarm. <br />
 * dlib library to localize the facial landmarks. <br />
+
+def sound_alarm(): <br />
+    pygame.mixer.init() <br />
+    pygame.mixer.music.load("alarm.wav") <br />
+    pygame.mixer.music.play() <br />
+    
+* We have defined the sound_alarm function in which we are initializing  module of mixer (pygame.mixer.init()) .
+* pygame.mixer.music.load("path") will load the music file for playback
+* pygame.mixer.music.play() start the playback.
+
+def eye_aspect_ratio(eye): <br />
+    A = dist.euclidean(eye[1], eye[5]) <br />
+    B = dist.euclidean(eye[2], eye[4])   #vertical distance <br />
+    C = dist.euclidean(eye[0], eye[3])   #horizontal distance <br />
+    ear = (A+B)/(2.0*C) <br />
+    return ear <br />
+    
+ * In this part of code ,we define the eye_aspect_ratio function which is used to compute ratio of distances between the vertical eye landmark and the distance between              horizontal eye landmarks. <br />
+ * The return value of eye aspect ratio will be approximately constant when the eye is open. the value will then rapid decrease towards zero during a blink. <br />
+ * If the eye is closed ,the eye aspect ratio will again remain approximately constant ,but will be much smaller than the ratio when the eye is open. <br />
