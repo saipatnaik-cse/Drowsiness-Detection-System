@@ -10,7 +10,8 @@ NOTE:
       
          
 
-INTRODUCTION   
+INTRODUCTION
+-------------
 
 Car accident is the major cause of death in which around 1.3 million people die every year. Majority of these accidents are caused because of distraction or the drowsiness of
 driver. Construction of high-speed highway roads had diminished the margin of error for the driver. The countless number of people drives for long distance every day and night 
@@ -19,11 +20,13 @@ alerts the driver if the driver gets distracted or feels drowsy. Facial landmark
 for detection of distraction or drowsiness. This whole system is deployed on portable hardware which can be easily installed in the car for use.
 
 SCOPE
+-----
 
 1. This project can be implemented in the form of mobile application to reduce the cost of hardware.
 2. This project can be integrated with car, so that automatic speed control can be imparted if the driver is found sleeping.
 
 PURPOSE
+--------
 
 Humans have always invented machines and devised techniques to ease and protect their lives, for mundane activities like traveling to work, or for more interesting  purposes like
 aircraft travel. With  the advancement in technology,  modes  of  transportation  kept  on  advancing  and  our dependency on it started increasing exponentially. It has greatly
@@ -36,3 +39,6 @@ carelessness can harm lives even of the people on the road. One kind of careless
 a  destructive outcome from such negligence, many researchers have written research papers on driver drowsiness detection systems. But at times, some of the points and
 observations made by the system are not accurate enough. Hence, to provide data and another perspective on the problem at hand, in  order  to  improve  their  implementations and
 to  further  optimize  the solution, this project has been done. 
+
+EXPLANATION OF THE CODE PART
+----------------------------
