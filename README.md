@@ -54,7 +54,7 @@ from scipy.spatial import distance as dist <br />
 import pygame <br />
 
 
-Here we have imported scipy package to compute the Euclidean distance between facial landmarks point in the eye aspect ratio calculation. <br />
-we have imported Thread class so we can play our alarm in a separate thread from the main thread to ensure our script doesn't pause execution while the alarm sounds. <br />
-Pygame to play the alarm. <br />
-dlib library to localize the facial landmarks. <br />
+* Here we have imported scipy package to compute the Euclidean distance between facial landmarks point in the eye aspect ratio calculation. <br />
+* we have imported Thread class so we can play our alarm in a separate thread from the main thread to ensure our script doesn't pause execution while the alarm sounds. <br />
+* Pygame to play the alarm. <br />
+* dlib library to localize the facial landmarks. <br />
