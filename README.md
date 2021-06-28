@@ -93,15 +93,18 @@ ALARM_ON = False <br />
 * Then we defined COUNTER, the total number of consecutive frames where the eye aspect ratio is below EYE_AR_THRESH . <br />
 * If COUNTER  exceeds EYE_AR_CONSEC_FRAMES ,then we will update the boolean ALARM_ON <br />
 
+
+
 predictor_path = 'shape_predictor_68_face_landmarks.dat' <br />
 detector = dlib.get_frontal_face_detector() # return a detector that is a function we can use to retrieve the faces information <br />
 predictor = dlib.shape_predictor(predictor_path) <br />
 
 
 
-Grab the indexes of the facial landmarks for the left and right eye,respectively <br />
+
+Grab the indexes of the facial landmarks for the left and right eye,respectively <br /><br />
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"] <br />
-( rStart , rEnd ) =face_utils.FACIAL_LANDMARKS_IDXS["right_eye"] <br />
+( rStart , rEnd ) =face_utils.FACIAL_LANDMARKS_IDXS["right_eye"] <br /><br />
 
 
 
