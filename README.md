@@ -6,9 +6,8 @@ Just paste the link in your browser and then you can download it.
 
 NOTE
 ----
--> Put all the file i.e alarm.wav and dataset file in the same folder.
--> Before execution download the python libraries used in the project.
-      
+Put all the file i.e alarm.wav and dataset file in the same folder.
+Before execution download the python libraries used in the project.      
          
 
 INTRODUCTION
