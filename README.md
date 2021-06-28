@@ -78,3 +78,82 @@ def eye_aspect_ratio(eye): <br />
  * In this part of code ,we define the eye_aspect_ratio function which is used to compute ratio of distances between the vertical eye landmark and the distance between              horizontal eye landmarks. <br />
  * The return value of eye aspect ratio will be approximately constant when the eye is open. the value will then rapid decrease towards zero during a blink. <br />
  * If the eye is closed ,the eye aspect ratio will again remain approximately constant ,but will be much smaller than the ratio when the eye is open. <br />
+ * On the top-left we have an eye that is fully open with the eye facial landmarks plotted. Then on the top-right we have an eye that is closed .The bottom then plots the eye aspect ratio over time. <br />
+ * As we can see ,the eye aspect ratio is constant (indicating the eye is open ),then rapidly drops to zero, then increases again,indicating  a blink has taken place. <br />
+ * In our project, we are monitoring the eye aspect ratio to se if the value falls but does not increase again,thus implying that the person has close their eyes. <br />
+ 
+EYE_AR_THRESH = 0.3 <br />
+EYE_AR_CONSEC_FRAMES = 40 <br />
+
+COUNTER = 0 <br />
+ALARM_ON = False <br />
+
+* In this part of code we defined the EYE_AR_THRESH. If the eye aspect ratio falls below this threshold,we will start counting the number of frames the person has closed their eyes. If the number of frames the person has closed their eyes in exceeds EYE_AR_CONSEC_FRAMES ,we will play the alarm. <br />
+* Here ,I have taken EYE_AR_CONSEC_FRAMES to be 40,means if person has closed their eyes for 40 consecutive frames ,we will play the alarm. <br />
+* Then we defined COUNTER, the total number of consecutive frames where the eye aspect ratio is below EYE_AR_THRESH . <br />
+* If COUNTER  exceeds EYE_AR_CONSEC_FRAMES ,then we will update the boolean ALARM_ON <br />
+
+predictor_path = 'shape_predictor_68_face_landmarks.dat' <br />
+detector = dlib.get_frontal_face_detector() # return a detector that is a function we can use to retrieve the faces information <br />
+predictor = dlib.shape_predictor(predictor_path) <br />
+
+Grab the indexes of the facial landmarks for the left and right eye,respectively <br />
+(lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"] <br />
+( rStart , rEnd ) =face_utils.FACIAL_LANDMARKS_IDXS["right_eye"] <br />
+
+
+cap = cv2.VideoCapture(0)
+while True:
+    ret, frame = cap.read()
+    if ret == False:
+        print('Failed to capture frame from camera,Check camera \n')
+        break
+
+    frame = imutils.resize(frame, width=450)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    rects = detector(gray, 0)
+
+    for rect in rects:
+        shape = predictor(gray, rect)    # determine the facial landmarks for face region
+        shape = face_utils.shape_to_np(shape) #converting to numpy array
+
+        leftEye = shape[lStart:lEnd]
+        rightEye = shape[rStart:rEnd]
+
+        leftEAR = eye_aspect_ratio(leftEye)
+        rightEAR = eye_aspect_ratio(rightEye)
+
+        ear = (leftEAR+rightEAR)/2.0
+
+        leftEyeHull = cv2.convexHull(leftEye)
+        rightEyeHull = cv2.convexHull(rightEye)
+        cv2.drawContours(frame, [leftEyeHull], -1, (0, 255, 0), 1)
+        cv2.drawContours(frame, [rightEyeHull], -1, (0, 255, 0), 1)
+
+        if ear < EYE_AR_THRESH:
+            COUNTER += 1
+
+            if COUNTER >= EYE_AR_CONSEC_FRAMES:
+                if not ALARM_ON:
+                    ALARM_ON = True
+                    d=threading.Thread(target=sound_alarm)
+                    d.setDaemon(True)
+                    d.start()
+
+                cv2.putText(frame, "DROWSINESS ALERT!", (10, 30),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+
+        else:
+            COUNTER = 0
+            ALARM_ON = False
+
+        cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+
+    cv2.imshow("Frame", frame)
+    key = cv2.waitKey(1) & 0xFF
+
+    if key == ord("q"):
+        break
+
+cv2.destroyAllWindows()
+cap.release()
+
