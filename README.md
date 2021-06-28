@@ -2,7 +2,7 @@
 
 Link to download the Dataset
 https://github.com/tzutalin/dlib-android/raw/master/data/shape_predictor_68_face_landmarks.dat
-Just paste the above link in your browser and then you can download it.
+Just paste the link in your browser and then you can download it.
 
 NOTE:
 1> Put all the file i.e alarm.wav and dataset file in the same folder.
