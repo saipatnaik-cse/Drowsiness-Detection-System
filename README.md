@@ -97,9 +97,13 @@ predictor_path = 'shape_predictor_68_face_landmarks.dat' <br />
 detector = dlib.get_frontal_face_detector() # return a detector that is a function we can use to retrieve the faces information <br />
 predictor = dlib.shape_predictor(predictor_path) <br />
 
+
+
 Grab the indexes of the facial landmarks for the left and right eye,respectively <br />
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"] <br />
 ( rStart , rEnd ) =face_utils.FACIAL_LANDMARKS_IDXS["right_eye"] <br />
+
+
 
 
 cap = cv2.VideoCapture(0)
@@ -108,6 +112,7 @@ while True:
     if ret == False:
         print('Failed to capture frame from camera,Check camera \n')
         break
+        # cv2.imshow(frame)
 
     frame = imutils.resize(frame, width=450)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -153,7 +158,17 @@ while True:
 
     if key == ord("q"):
         break
-
 cv2.destroyAllWindows()
 cap.release()
+
+* Here,to extract the eye regions from a set of facial landmarks, we simply need to know the correct array slice indexes. <br />
+* Now ,to capture the video we are starting our webcam and then reading the frames , which we then preprocess by resizing it to have a width of 450 pixels and converting it to grayscale. <br />
+* applying dlib’s face detector to find and locate the face(s) in the image <br />
+* For each of the detected faces, we apply dlib’s facial landmark detector and convert the result to a NumPy array. <br />
+* Using NumPy array slicing we can extract the (x, y)-coordinates of the left and right eye, respectively so that we can compute their eye aspect ratios . <br />
+* Then we are visualizing each of the eye regions from our frame by using cv2.drawContours function and we are now ready to check to see if the person in our webcam  is starting to show symptoms of drowsiness. <br />
+* Then we are checking to see if the eye aspect ratio is below the “blink/closed” eye threshold,EYE_AR_THRESH . If it is, we increment  COUNTER , the total number of consecutive frames where the person has had their eyes closed If COUNTER exceeds EYE_AR_CONSEC_FRAMES , then we assume the person is starting to doze off. <br />
+* we created  a separate thread responsible for calling sound_alarm to ensure that our main program isn’t blocked until the sound finishes playing then we draw the text DROWSINESS ALERT ! on our frame. <br />
+* if the eye aspect ratio is larger than EYE_AR_THRESH , indicating the eyes are open. If the eyes are open, we reset COUNTER and ensure the alarm is off.
+And then finally our drowsiness detector frame display to our screen. <br />
 
