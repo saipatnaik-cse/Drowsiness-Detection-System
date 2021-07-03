@@ -74,6 +74,10 @@ def eye_aspect_ratio(eye): <br />
     C = dist.euclidean(eye[0], eye[3])   #horizontal distance <br />
     ear = (A+B)/(2.0*C) <br />
     return ear <br />
+  
+  ![facial_landmarks_68markup-768x619](https://user-images.githubusercontent.com/70318294/124358827-b86af600-dc3f-11eb-89c7-3f57ec41cf74.jpg)
+
+
     
  * In this part of code ,we define the eye_aspect_ratio function which is used to compute ratio of distances between the vertical eye landmark and the distance between              horizontal eye landmarks. <br />
  * The return value of eye aspect ratio will be approximately constant when the eye is open. the value will then rapid decrease towards zero during a blink. <br />
@@ -87,6 +91,8 @@ EYE_AR_CONSEC_FRAMES = 40 <br />
 
 COUNTER = 0 <br />
 ALARM_ON = False <br />
+
+![blink_detection_plot](https://user-images.githubusercontent.com/70318294/124358788-80fc4980-dc3f-11eb-8340-499c23b677d8.jpg)
 
 * In this part of code we defined the EYE_AR_THRESH. If the eye aspect ratio falls below this threshold,we will start counting the number of frames the person has closed their eyes. If the number of frames the person has closed their eyes in exceeds EYE_AR_CONSEC_FRAMES ,we will play the alarm. <br />
 * Here ,I have taken EYE_AR_CONSEC_FRAMES to be 40,means if person has closed their eyes for 40 consecutive frames ,we will play the alarm. <br />
